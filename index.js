@@ -1,22 +1,7 @@
-const mysql = require("mysql");
-const inquirer = require("inquirer");
+var Store = require("./lib/Store");
 
-const connection = mysql.connect({
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: '',
+// Initialize a new Store object
+var store = new Store();
 
-    //database: ''
-
-});
-
-connection.connect(function(err) {
-    if(err) throw err;
-
-    console.log(`MySQL connect on ${connection.threadId}`);
-
-    // QUERIES
-
-    connection.end;
-});
+// Start store
+store.start();
