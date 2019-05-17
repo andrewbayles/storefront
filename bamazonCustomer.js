@@ -34,8 +34,6 @@ function displayAllItems() {
 
 }
 
-
-
 function purchasePrompt() {
 
     var itemIds = [];
@@ -63,9 +61,19 @@ function purchasePrompt() {
 
         if (itemIds.includes(answer.purchaseId)) {
 
+            connection.query("SELECT * FROM products WHERE id = '" + answer.purchaseId + "'", function(err, res) {
+                if (err) throw err;
+                Object.keys(res).forEach(function(key) {
+                    var row = res[key];
+                    if (row.stock_quantity >= answer.purchaseQuantity) { // Check to see if the store has enough of the product to meet the customer's request.
+                        fulfillOrder();
+                    } else {
+                        console.log("Insufficient quantity!");
+                        purchasePrompt();
+                    }
+                });    
+            });
 
-            
-        
         } else {
             console.log("Sorry, that's not a valid product ID!");
             purchasePrompt();
@@ -75,11 +83,6 @@ function purchasePrompt() {
 
 }
 
-
-
-
 function fulfillOrder() {
 
 }
-
-
