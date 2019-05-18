@@ -61,7 +61,6 @@ function purchasePrompt() {
 
         if (itemIds.indexOf(parseInt(answer.purchaseId)) != -1) {
 
-            /*
             connection.query("SELECT * FROM products WHERE id = '" + answer.purchaseId + "'", function(err, res) {
                 if (err) { throw err; }
                 Object.keys(res).forEach(function(key) {
@@ -74,9 +73,6 @@ function purchasePrompt() {
                     }
                 });    
             });
-            */
-
-            console.log("ID detected!");
 
         } else {
             console.log("Sorry, that's not a valid product ID!");
