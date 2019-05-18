@@ -66,7 +66,7 @@ function purchasePrompt() {
                 Object.keys(res).forEach(function(key) {
                     var row = res[key];
                     if (row.stock_quantity >= answer.purchaseQuantity) { // Check to see if the store has enough of the product to meet the customer's request.
-                        fulfillOrder();
+                        fulfillOrder(answer.purchaseId, answer.purchaseQuantity, row.stock_quantity, row.price);
                     } else {
                         console.log("Insufficient quantity!");
                         purchasePrompt();
@@ -80,11 +80,22 @@ function purchasePrompt() {
         }
 
     });
-
 }
 
-function fulfillOrder() {
+function fulfillOrder(productId, orderQuantity, stockQuantity, productPrice) {
+    console.log("Fulfilling customer's order...");
+    var newStockQuantity = stockQuantity - orderQuantity;
+    var totalOrderCost = productPrice * orderQuantity;
 
-    console.log("Fulfill customer's order here.");
+    // Test here.
+
+    connection.query("UPDATE products SET ? WHERE ?",
+        [{ stock_quantity: newStockQuantity }, { id: productId }],
+        function(err, res) {
+            if (err) { throw err; }
+            console.log("Product stock updated!\n");
+            console.log("Total cost: $" + totalOrderCost)
+        }
+    );
 
 }
