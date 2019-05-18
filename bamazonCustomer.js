@@ -86,8 +86,7 @@ function fulfillOrder(productId, orderQuantity, stockQuantity, productPrice) {
     console.log("Fulfilling customer's order...");
     var newStockQuantity = stockQuantity - orderQuantity;
     var totalOrderCost = productPrice * orderQuantity;
-
-    // Test here.
+    totalOrderCost = Math.round(totalOrderCost * 100) / 100;
 
     connection.query("UPDATE products SET ? WHERE ?",
         [{ stock_quantity: newStockQuantity }, { id: productId }],
