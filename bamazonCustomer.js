@@ -59,10 +59,11 @@ function purchasePrompt() {
         }
     ]).then(function(answer) {
 
-        if (itemIds.includes(answer.purchaseId)) {
+        if (itemIds.indexOf(parseInt(answer.purchaseId)) != -1) {
 
+            /*
             connection.query("SELECT * FROM products WHERE id = '" + answer.purchaseId + "'", function(err, res) {
-                if (err) throw err;
+                if (err) { throw err; }
                 Object.keys(res).forEach(function(key) {
                     var row = res[key];
                     if (row.stock_quantity >= answer.purchaseQuantity) { // Check to see if the store has enough of the product to meet the customer's request.
@@ -73,6 +74,9 @@ function purchasePrompt() {
                     }
                 });    
             });
+            */
+
+            console.log("ID detected!");
 
         } else {
             console.log("Sorry, that's not a valid product ID!");
@@ -84,5 +88,7 @@ function purchasePrompt() {
 }
 
 function fulfillOrder() {
+
+    console.log("Fulfill customer's order here.");
 
 }
